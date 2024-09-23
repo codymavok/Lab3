@@ -37,7 +37,7 @@ public class LanguageCodeConverter {
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()
 
-        // Checkstyle: '}' on next line should be alone on a line.
+            // Checkstyle: '}' on next line should be alone on a line.
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
