@@ -41,8 +41,8 @@ public class Main {
     public static void runProgram(Translator translator) {
         while (true) {
             String country = promptForCountry(translator);
-            // TODO CheckStyle: The String "quit" appears 3 times in the file.
-            //Checkstyle: String literal expressions should be on the left side of an equals comparison
+            // CheckStyle: The String "quit" appears 3 times in the file.
+            // Checkstyle: String literal expressions should be on the left side of an equals comparison
             if (QUIT.equals(country)) {
                 break;
             }
