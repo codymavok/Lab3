@@ -42,16 +42,15 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             // TODO Task: use lines to populate the instance variable(s)
-            String jsonContent = String.join("", lines);
-            JSONArray jsonObject = new JSONArray(jsonContent);
+//            String jsonContent = String.join("", lines);
+//            JSONArray jsonObject = new JSONArray(jsonContent);
 
-            for (int i = 0; i < jsonObject.length(); i++) {
-                JSONObject countryObject = jsonObject.getJSONObject(i);
-                String countryCode = countryObject.getString("alpha3");
-                String countryName = countryObject.getString("en");
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i);
+                String[] split = line.split(" ");
 
-                codeToCountry.put(countryCode, countryName);
-                countryToCode.put(countryName.toLowerCase(), countryCode);
+                codeToCountry.put(split[2], split[0]);
+                countryToCode.put(split[0].toLowerCase(), split[2]);
             }
 
         }
