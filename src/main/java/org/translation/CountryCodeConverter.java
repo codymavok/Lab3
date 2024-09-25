@@ -1,5 +1,8 @@
 package org.translation;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -14,6 +17,8 @@ import java.util.Map;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    private Map<String, String> codeToCountry;
+    private Map<String, String> countryToCode;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -29,18 +34,30 @@ public class CountryCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public CountryCodeConverter(String filename) {
+        codeToCountry = new HashMap<>();
+        countryToCode = new HashMap<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
             // TODO Task: use lines to populate the instance variable(s)
+            String jsonContent = String.join("", lines);
+            JSONArray jsonObject = new JSONArray(jsonContent);
+
+            for (int i = 0; i < jsonObject.length(); i++) {
+                JSONObject countryObject = jsonObject.getJSONObject(i);
+                String countryCode = countryObject.getString("alpha3");
+                String countryName = countryObject.getString("en");
+
+                codeToCountry.put(countryCode, countryName);
+                countryToCode.put(countryName.toLowerCase(), countryCode);
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     /**
@@ -50,7 +67,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        return codeToCountry.getOrDefault(code, "Country not found");
     }
 
     /**
@@ -60,7 +77,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        return countryToCode.getOrDefault(country.toLowerCase(), "Country not found");
     }
 
     /**
@@ -69,6 +86,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return codeToCountry.size();
     }
 }
