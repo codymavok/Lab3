@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
@@ -12,7 +14,8 @@ import java.util.List;
 public class LanguageCodeConverter {
 
     // TODO Task: pick appropriate instance variables to store the data necessary for this class
-
+    private Map<String, String> codeToLang;
+    private Map<String, String> langToCode;
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
      * in the resources folder.
