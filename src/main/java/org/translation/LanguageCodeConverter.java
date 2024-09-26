@@ -39,6 +39,17 @@ public class LanguageCodeConverter {
             //           tip: you might find it convenient to create an iterator using lines.iterator()
 
             // Checkstyle: '}' on next line should be alone on a line.
+            codeToLang = new HashMap<>();
+            langToCode = new HashMap<>();
+
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i);
+                String[] parts = line.split("\t");
+                if (parts.length == 2) {
+                    codeToLang.put(parts[0].toLowerCase(), parts[1]);
+                    langToCode.put(parts[1].toLowerCase(), parts[0]);
+                }
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -53,7 +64,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        return codeToLang.getOrDefault(code.toLowerCase(), "Language was not found");
     }
 
     /**
@@ -63,7 +74,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        return langToCode.getOrDefault(language.toLowerCase(), "Language was not found");
     }
 
     /**
@@ -72,6 +83,6 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return codeToLang.size();
     }
 }
